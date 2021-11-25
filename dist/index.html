@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,700;0,900;1,100;1,200;1,600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="./styles.css" />
+    <title>My Team</title>
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 jumbotron mb-3 bg-dark text-white">
+          <h1 class="text-center">
+            <span class="material-icons">groups</span> My Team
+          </h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div
+          class="team-area col-12 d-flex flex-wrap justify-content-between p-3"
+        >
+          <!--Enigneer Card-->
+          <div class="card employee-card mr-1 mt-3">
+            <div class="card-header">
+              <h2 class="card-title">{{ name }}</h2>
+              <h3 class="card-title">{{ role }}</h3>
+            </div>
+            <div class="card-body">
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <span class="material-icons">fingerprint</span> ID: {{ id }}
+                </li>
+                <li class="list-group-item text-dark">
+                  <span class="material-icons">email</span> Email:
+                  <a href="mailto:{{ email }}">{{ email }}</a>
+                </li>
+                <li class="list-group-item text-dark">
+                  <span class="material-icons"> code </span> GitHub:
+                  <a href="https://github.com/{{ github }}" target="_blank"
+                    >{{ github }}</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!--Manager Card-->
+
+          <div class="card employee-card mr-1 mt-3">
+            <div class="card-header">
+              <h2 class="card-title">{{ name }}</h2>
+              <h3 class="card-title">{{ role }}</h3>
+            </div>
+            <div class="card-body">
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <span class="material-icons">fingerprint</span> ID: {{ id }}
+                </li>
+                <li class="list-group-item text-dark">
+                  <span class="material-icons">email</span> Email:
+                  <a href="mailto:{{ email }}">{{ email }}</a>
+                </li>
+                <li class="list-group-item">
+                  <span class="material-icons">business</span> Office Number: {{
+                  officeNumber }}
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!--Intern Card-->
+
+          <div class="card employee-card mr-1 mt-3">
+            <div class="card-header">
+              <h2 class="card-title">{{ name }}</h2>
+              <h3 class="card-title">{{ role }}</h3>
+            </div>
+            <div class="card-body">
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <span class="material-icons">fingerprint</span> ID: {{ id }}
+                </li>
+                <li class="list-group-item text-dark">
+                  <span class="material-icons">email</span> Email:
+                  <a href="mailto:{{ email }}">{{ email }}</a>
+                </li>
+                <li class="list-group-item">
+                  <span class="material-icons">school</span> School: {{ school
+                  }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
