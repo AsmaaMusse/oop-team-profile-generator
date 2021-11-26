@@ -149,12 +149,12 @@ const start = async () => {
     }
   });
 
-  const htmlFile = generateHtml(answers);
-  writeToFile("generatedHTML.md", htmlFile);
+  const html = generateHtml(answers);
+  writeToFile("generatedHTML.md", html);
 };
 
-const generateHtml = (answers) => {
-  return "";
+const generateHtml = () => {
+  return ``;
 };
 
 const writeToFile = (filePath, htmlFile) => {
