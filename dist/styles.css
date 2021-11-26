@@ -3,13 +3,13 @@ body {
 }
 
 li:hover {
-  background-color: lightgrey;
+  background-color: rgb(243, 183, 183);
 }
 
 a {
   color: black;
 }
 a:hover {
-  background-color: lavenderblush;
+  background-color: rgb(192, 215, 245);
   border-radius: 10%;
 }
