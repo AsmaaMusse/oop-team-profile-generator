@@ -32,3 +32,26 @@ const questions = [
     choices: ["Manager", "Engineer", "Intern"],
   },
 ];
+
+const managerQuestion = [
+  {
+    type: "input",
+    name: "officeNumber",
+    message: "What is the manager's office number?",
+  },
+];
+
+const engineerQuestion = [
+  {
+    type: "input",
+    name: "github",
+    message: "What is the engineer's Github username?",
+  },
+];
+
+const internQuestion = [
+  {
+    type: "input",
+    name: "What school does the intern attend?",
+  },
+];
