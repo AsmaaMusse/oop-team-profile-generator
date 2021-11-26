@@ -29,13 +29,13 @@ const managerQuestions = [
     name: "name",
     message: "Enter employee name:",
   },
-    
+
   {
     type: "input",
     name: "id",
     message: "Enter employee ID:",
   },
-    
+
   {
     type: "input",
     name: "email",
@@ -55,13 +55,13 @@ const engineerQuestions = [
     name: "name",
     message: "Enter employee name:",
   },
-    
+
   {
     type: "input",
     name: "id",
     message: "Enter employee ID:",
   },
-    
+
   {
     type: "input",
     name: "email",
@@ -81,18 +81,18 @@ const internQuestions = [
     name: "name",
     message: "Enter employee name:",
   },
-    
+
   {
     type: "input",
     name: "id",
     message: "Enter employee ID:",
   },
-    
+
   {
     type: "input",
     name: "email",
     message: "Enter employee email:",
-  }, 
+  },
 
   {
     type: "input",
@@ -102,14 +102,13 @@ const internQuestions = [
 ];
 
 const addEmployee = [
-    {
-      type: "confirm",
-      name: "newMember",
-      message: "Would you like to add another employee?",
-    },
-];    
+  {
+    type: "confirm",
+    name: "newMember",
+    message: "Would you like to add another employee?",
+  },
+];
 
-// Empty employee array to push up into
 let employeeArray = [];
 
 // Function to start run the application
@@ -122,31 +121,43 @@ const start = async () => {
   writeToFile("generatedHtml.md", html);
 };
 
-
 const newEmployee = async () => {
-  const { role } = await inquirer.prompt(addEmployee)
-   .then((answers) => {
-
+  const { role } = await inquirer.prompt(addEmployee).then((answers) => {
     let name = answers.name;
     let id = answers.id;
     let email = answers.email;
     let role = answers.role;
 
-    let officeNumber = answers.officeNumber;
-    let school = answers.school;
-   
-   if(role === "Engineer") {
-    
-    inquirer.prompt(engineerQuestions).then((answers) => {
-        let github = answers.github;  
-        let employee = new Engineer (name, id, email, github );
-
-
-    })
-   }
-  },
+    // If chosen role = manager
+    if (role === "Manager") {
+      // Prompt user with manager questions
+      inquirer.prompt(managerQuestions).then((answers) => {
+        let officeNumber = answers.officeNumber;
+        let employee = new Manager(name, id, email, officeNumber);
+        // Push data into employee array.
+        employeeArray.push(employee);
+      });
+    } else if (role === "Engineer") {
+      // If chosen role = engineer
+      // Prompt user with engineer questions
+      inquirer.prompt(engineerQuestions).then((answers) => {
+        let github = answers.github;
+        let employee = new Engineer(name, id, email, github);
+        // Push data into employee array.
+        employeeArray.push(employee);
+      });
+    } else if (role === "Intern") {
+      // Else if the chosen role = intern
+      // Prompt user with intern questions
+      inquirer.prompt(internQuestions).then((answers) => {
+        let school = answers.school;
+        let employee = new Intern(name, id, email, school);
+        // Push data into employee array.
+        employeeArray.push(employee);
+      });
+    }
+  });
 };
-
 
 const generateHtml = (answers) => {
   return "";
