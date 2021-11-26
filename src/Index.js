@@ -6,6 +6,7 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 
+//  Starter questions
 const introQuestions = [
   {
     type: "input",
@@ -21,6 +22,7 @@ const introQuestions = [
   },
 ];
 
+// Questions to be rendered depending on the role chosen
 const managerQuestions = [
   {
     type: "input",
@@ -47,7 +49,7 @@ const managerQuestions = [
   },
 ];
 
-const engineerQuestion = [
+const engineerQuestions = [
   {
     type: "input",
     name: "name",
@@ -73,7 +75,7 @@ const engineerQuestion = [
   },
 ];
 
-const internQuestion = [
+const internQuestions = [
   {
     type: "input",
     name: "name",
@@ -107,8 +109,12 @@ const addEmployee = [
     },
 ];    
 
+// Empty employee array to push up into
+let employeeArray = [];
+
+// Function to start run the application
 const start = async () => {
-  const answers = await inquirer.prompt(questions);
+  const answers = await inquirer.prompt(introQuestions);
   const html = generateHtml(answers);
 
   addEmployee();
@@ -116,8 +122,9 @@ const start = async () => {
   writeToFile("generatedHtml.md", html);
 };
 
-const addEmployee = async () => {
-  const { role } = await inquirer.prompt(questions)
+
+const newEmployee = async () => {
+  const { role } = await inquirer.prompt(addEmployee)
    .then((answers) => {
 
     let name = answers.name;
@@ -130,9 +137,10 @@ const addEmployee = async () => {
    
    if(role === "Engineer") {
     
-    inquirer.prompt(engineerQuestion).then((answers) => {
+    inquirer.prompt(engineerQuestions).then((answers) => {
         let github = answers.github;  
-        let employee = new Engineer (name)
+        let employee = new Engineer (name, id, email, github );
+
 
     })
    }
@@ -144,9 +152,9 @@ const generateHtml = (answers) => {
   return "";
 };
 
-const writeToFile = (filePath, data) => {
+const writeToFile = (filePath, htmlFile) => {
   try {
-    fs.writeFileSync(filePath, data);
+    fs.writeFileSync(filePath, htmlFile);
   } catch (error) {
     console.log(error.message);
   }
