@@ -310,3 +310,73 @@ const writeToFile = (filePath, htmlFile) => {
 };
 
 start();
+
+// const addEmployee = async () => {
+//   await inquirer
+//     .prompt([
+//       {
+//         type: "input",
+//         name: "teamName",
+//         message: "Enter team name:",
+//       },
+//       {
+//         type: "list",
+//         name: "role",
+//         message: "Which employee role do you want to add?",
+//         choices: ["Manager", "Engineer", "Intern", "None"],
+//       },
+//       {
+//         type: "input",
+//         name: "name",
+//         message: "Enter employee's name:",
+//       },
+//       {
+//         type: "input",
+//         name: "id",
+//         message: "Enter employee's ID:",
+//       },
+//       {
+//         type: "input",
+//         name: "email",
+//         message: "Enter employee's email:",
+//       },
+//     ])
+
+//     .then(function ({ name, role, id, email }) {
+//       let roleInfo = "";
+
+//       if (role === "Manager") {
+//         roleInfo = "officeNumber";
+//       } else if (role === "Engineer") {
+//         roleInfo = "github";
+//       } else if (role === "Intern") {
+//         roleInfo = "school";
+//       }
+
+//       inquirer
+//         .prompt(function ({ roleInfo, newMember }) {
+//           if (role === "Manager") {
+//             const officeNumber = answers.officeNumber;
+//             newMember = new Manager(name, id, email, officeNumber);
+//           } else if (role === "Engineer") {
+//             const github = answers.github;
+//             newMember = new Engineer(name, id, email, github);
+//           } else if (role === "Intern") {
+//             const school = answers.school;
+//             newMember = new Intern(name, id, email, school);
+//           }
+//         })
+
+//         .then([
+//           {
+//             type: "confirm",
+//             name: "newMember",
+//             message: "Do you want to add a new member?",
+//           },
+
+//           employeeArray.push(newMember),
+//         ]);
+//     });
+// };
+
+// start();
