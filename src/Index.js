@@ -122,27 +122,26 @@ const start = async () => {
     // If chosen role = manager
     if (role === "Manager") {
       // Prompt user with manager questions
-      inquirer.prompt(managerQuestions).then((answers) => {
-        let officeNumber = answers.officeNumber;
-        let employee = new Manager();
+      inquirer.prompt(managerQuestions).then(function ({ officeNumber }) {
+        let employee = new Manager(name, id, email, officeNumber);
         // Push data into employee array.
         employeeArray.push(employee);
       });
     } else if (role === "Engineer") {
       // If chosen role = engineer
       // Prompt user with engineer questions
-      inquirer.prompt(engineerQuestions).then((answers) => {
+      inquirer.prompt(engineerQuestions).then(function ({ github }) {
         let github = answers.github;
-        let employee = new Engineer();
+        let employee = new Engineer(name, id, email, github);
         // Push data into employee array.
         employeeArray.push(employee);
       });
     } else if (role === "Intern") {
       // Else if the chosen role = intern
       // Prompt user with intern questions
-      inquirer.prompt(internQuestions).then((answers) => {
+      inquirer.prompt(internQuestions).then(function ({ school }) {
         let school = answers.school;
-        let employee = new Intern();
+        let employee = new Intern(name, id, email, school);
         // Push data into employee array.
         employeeArray.push(employee);
       });
@@ -153,8 +152,27 @@ const start = async () => {
   writeToFile("generatedHTML.md", html);
 };
 
-const generateHtml = () => {
+const generateTitle = (answers) => {
   return ``;
+};
+
+const generateManagerCard = (answers) => {
+  return ``;
+};
+
+const generateEngineerCard = (answers) => {
+  return ``;
+};
+
+const generateInternCard = (answers) => {
+  return ``;
+};
+
+const generateHtml = (answers) => {
+  return `${generateTitle(answers)}
+  ${generateManagerCard(answers)}
+  ${generateEngineerCard(answers)}
+  ${generateInternCard(answers)}`;
 };
 
 const writeToFile = (filePath, htmlFile) => {
