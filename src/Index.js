@@ -9,163 +9,164 @@ const Manager = require("./lib/Manager");
 
 const employeeArray = [];
 
-const start = () => {
-  inquirer
+const start = async () => {
+  const answers = await inquirer.prompt([
+    {
+      type: "input",
+      name: "teamName",
+      message: "Enter team Name:",
+    },
+    {
+      type: "list",
+      name: "role",
+      message: "Which role would you like to add?",
+      choices: ["Manager", "Engineer", "Intern", "None"],
+    },
+  ]);
+
+  addManager();
+};
+
+const addManager = async () => {
+  const answers = await inquirer
     .prompt([
       {
         type: "input",
-        name: "teamName",
-        message: "Enter team Name:",
+        name: "name",
+        message: "Enter manager's name:",
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "Enter manager's ID:",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "Enter manager's email:",
+      },
+      {
+        type: "input",
+        name: "officeNumber",
+        message: "Enter manager's officeNumber:",
       },
     ])
+
     .then(function (answers) {
-      const teamName = answers.teamName;
-      employeeArray.push(teamName);
+      const name = answers.name,
+      const  id = answers.id,
+      const  email = answers.email,
+      const  officeNumber = answers.officeNumber,
+      const newMember = new Manager(name, id, email, officeNumber);
+      // push answers into employee array
+      employeeArray.push(newMember);
+      addNewMember();
     });
 };
 
-const addEmployee = () => {
-  const addManager = () => {
-    inquirer
-      .prompt([
-        {
-          type: "input",
-          name: "name",
-          message: "Enter manager's name:",
-        },
-        {
-          type: "input",
-          name: "id",
-          message: "Enter manager's ID:",
-        },
-        {
-          type: "input",
-          name: "email",
-          message: "Enter manager's email:",
-        },
-        {
-          type: "input",
-          name: "officeNumber",
-          message: "Enter manager's officeNumber:",
-        },
-      ])
+const addNewMember = async () => {
+  const answers = await inquirer
+    .prompt([
+      {
+        type: "confirm",
+        name: "newMember",
+        message: "Would you like to add another employee?",
+      },
+    ])
 
-      .then(function (answers) {
-        const name = answers.name,
-          id = answers.id,
-          email = answers.email,
-          officeNumber = answers.officeNumber,
-          manager = new Manager(name, id, email, officeNumber);
-        employeeArray.push(manager);
-      });
-  };
+    .then(function (answers) {
+      switch (answers.newMember) {
+        case "Yes, add manager":
+          addManager();
+          break;
 
-  const addEngineer = () => {
-    inquirer
-      .prompt([
-        {
-          type: "input",
-          name: "name",
-          message: "Enter engineer's name:",
-        },
-        {
-          type: "input",
-          name: "id",
-          message: "Enter engineer's ID:",
-        },
-        {
-          type: "input",
-          name: "email",
-          message: "Enter engineer's email:",
-        },
-        {
-          type: "input",
-          name: "github",
-          message: "Enter engineer's github:",
-        },
-      ])
+        case "Yes, add engineer":
+          addEngineer();
+          break;
 
-      .then(function (answers) {
-        const name = answers.name,
-          id = answers.id,
-          email = answers.email,
-          github = answers.github,
-          engineer = new Engineer(name, id, email, github);
-        employeeArray.push(engineer);
-      });
-  };
+        case "Yes, add intern":
+          addIntern();
+          break;
 
-  const addIntern = () => {
-    inquirer
-      .prompt([
-        {
-          type: "input",
-          name: "name",
-          message: "Enter intern's name:",
-        },
-        {
-          type: "input",
-          name: "id",
-          message: "Enter intern's ID:",
-        },
-        {
-          type: "input",
-          name: "email",
-          message: "Enter intern's email:",
-        },
-        {
-          type: "input",
-          name: "school",
-          message: "Enter intern's school:",
-        },
-      ])
+        case "No, my is done":
+          generateHtml();
+          break;
+      }
+    });
+};
 
-      .then(function (answers) {
-        const name = answers.name,
-          id = answers.id,
-          email = answers.email,
-          school = answers.school,
-          intern = new Intern(name, id, email, school);
-        employeeArray.push(intern);
-      });
-  };
+const addEngineer = async () => {
+  const answers = await inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "name",
+        message: "Enter engineer's name:",
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "Enter engineer's ID:",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "Enter engineer's email:",
+      },
+      {
+        type: "input",
+        name: "github",
+        message: "Enter engineer's github:",
+      },
+    ])
 
-  const addNewMember = () => {
-    inquirer
-      .prompt([
-        {
-          type: "confirm",
-          name: "newMember",
-          message: "Would you like to add another employee?",
-        },
-      ])
+    .then(function (answers) {
+      const name = answers.name,
+      const id = answers.id,
+      const email = answers.email,
+      const github = answers.github,
+      const newMember = new Engineer(name, id, email, github);
+      // push answers into employee array
+      employeeArray.push(newMember);
+      addNewMember();
+    });
+};
 
-      .then(function (answers) {
-        switch (answers.newMember) {
-          case "Yes, add manager":
-            addManager();
-            break;
+const addIntern = async () => {
+  const answers = await inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "name",
+        message: "Enter intern's name:",
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "Enter intern's ID:",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "Enter intern's email:",
+      },
+      {
+        type: "input",
+        name: "school",
+        message: "Enter intern's school:",
+      },
+    ])
 
-          case "Yes, add engineer":
-            addEngineer();
-            break;
-
-          case "Yes, add intern":
-            addIntern();
-            break;
-
-          case "No, my is done":
-            generateHtml();
-            break;
-        }
-      });
-  };
-
-  addManager();
-  addEngineer();
-  addIntern();
-  addNewMember();
+    .then(function (answers) {
+      const name = answers.name,
+      const id = answers.id,
+      const email = answers.email,
+      const school = answers.school,
+      const newMember = new Intern(name, id, email, school);
+      // push answers into employee array
+      employeeArray.push(newMember);
+      addNewMember();
+    });
 };
 
 start();
-addEmployee();
