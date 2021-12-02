@@ -6,9 +6,6 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 
-const fileDirectory = path.resolve(__dirname, "dist");
-const filePath = path.join(fileDirectory, "index.html");
-
 //  Starter questions
 const teamQuestion = [
   {
@@ -119,6 +116,11 @@ const start = async () => {
   let inProgress = true;
   const results = [];
 
+  const htmlFile = generateHtmlFile(results);
+
+  // write generated readme to a file
+  writeToFile("generatedHtmlFile.html", htmlFile);
+
   const { teamName } = await inquirer.prompt(teamQuestion);
   console.log(teamName);
 
@@ -155,93 +157,144 @@ const start = async () => {
 
     if (!quit) {
       inProgress = false;
-      fs.mkdirSync(fileDirectory);
     }
-    const writeToFile = (filePath, htmlFile) => {
-      try {
-        fs.writeFileSync(filePath, htmlFile);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
   }
-
-  const htmlFile = generateHtml(employeeArray);
-  writeToFile("generatedHTML.md", htmlFile);
-  const html = generateHtml(employeeArray);
-  writeToFile("generatedHTML.md", html);
 };
 
-// const generateHtmlIntro = () => {
-//   return `<!DOCTYPE html>
-//   <html lang="en">
-//     <head>
-//       <meta charset="UTF-8" />
-//       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-//       <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+const generateHtmlFile = (results) => {
+  return `<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+      <link
+        rel="stylesheet"
+        href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+        crossorigin="anonymous"
+      />
+  
+      <link rel="preconnect" href="https://fonts.gstatic.com" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,700;0,900;1,100;1,200;1,600&display=swap"
+        rel="stylesheet"
+      />
+  
+      <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+        crossorigin="anonymous"
+      />
+  
+      <link rel="stylesheet" href="./styles.css" />
+      <title>My Team</title>
+    </head>
+  
+    <body>
+      <header class="header">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12 jumbotron mb-3 bg-dark text-white">
+              <h1 class="text-center">
+                <i class="fas fa-users"></i> ${results.teamName}
+              </h1>
+            </div>
+          </div>
+        </div>
+      </header>
+  
+      <div class="container">
+        <div class="row">
+          <div
+            class="team-area col-12 d-flex flex-wrap justify-content-between p-3"
+          >
+            <div class="card employee-card mr-1 mt-3">
+              <div class="card-header">
+                <h2 class="card-title">${results.name}</h2>
+                <h3 class="card-title">Manager</h3>
+              </div>
+              <div class="card-body">
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <span class="material-icons">fingerprint</span> ID:
+                    ${results.id}
+                  </li>
+                  <li class="list-group-item text-dark">
+                    <span class="material-icons">email</span> Email:
+                    <a href="mailto:{{ email }}">${results.email}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="material-icons">business</span> Office Number:
+                    ${results.officeNumber}
+                  </li>
+                </ul>
+              </div>
+            </div>
+  
+            <div class="card employee-card mr-1 mt-3">
+              <div class="card-header">
+                <h2 class="card-title">${results.name}</h2>
+                <h3 class="card-title bg-info">Engineer</h3>
+              </div>
+              <div class="card-body">
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <span class="material-icons"></span> ID: ${results.id}
+                  </li>
+                  <li class="list-group-item text-dark">
+                    <span class="material-icons">email</span> Email:
+                    <a href="mailto:{{ email }}">${results.email}</a>
+                  </li>
+                  <li class="list-group-item text-dark">
+                    <span class="material-icons">code</span> GitHub:
+                    <a href="https://github.com/{{ github }}" target="_blank"
+                      >${results.github}</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+  
+            <div class="card employee-card mr-1 mt-3">
+              <div class="card-header">
+                <h2 class="card-title">${results.name}</h2>
+                <h3 class="card-title">Intern</h3>
+              </div>
+              <div class="card-body">
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <span class="material-icons">fingerprint</span> ID:
+                    ${results.id}
+                  </li>
+                  <li class="list-group-item text-dark">
+                    <span class="material-icons">email</span> Email:
+                    <a href="mailto:{{ email }}">${results.email}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="material-icons">school</span> School:
+                    ${results.school}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </body>
+  </html>
+  
+  `;
+};
 
-//       <link
-//         rel="stylesheet"
-//         href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-//         integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-//         crossorigin="anonymous"
-//       />
-
-//       <link rel="preconnect" href="https://fonts.gstatic.com" />
-//       <link
-//         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,700;0,900;1,100;1,200;1,600&display=swap"
-//         rel="stylesheet"
-//       />
-
-//       <link
-//         href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
-//         rel="stylesheet"
-//         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
-//         crossorigin="anonymous"
-//       />
-
-//       <link rel="stylesheet" href="./styles.css" />
-//       <title>My Team</title>
-//     </head>`;
-// };
-
-// const generateTeamName = (teamName) => {
-//   return `<body>
-//   <header class="header">
-//     <div class="container-fluid">
-//       <div class="row">
-//         <div class="col-12 jumbotron mb-3 bg-dark text-white">
-//           <h1 class="text-center">
-//             <i class="fas fa-users"></i> ${teamName.teamName}
-//           </h1>
-//         </div>
-//       </div>
-//     </div>
-//   </header>
-
-//   <div class="container">
-//     <div class="row">
-//       <div
-//         class="team-area col-12 d-flex flex-wrap justify-content-between p-3"
-//       >`;
-// };
-
-// const generateHtmlEnd = () => {
-//   return ` </div>
-//   </div>
-// </div>
-// </body>
-// </html>
-// `;
-// };
-
-// const generateHtml = (answers) => {
-//   return `${generateHtmlIntro(answers)}
-//   ${generateTeamName(answers)}
-//   ${generateManagerCard(manager)}
-//   ${generateEngineerCard(engineer)}
-//   ${generateInternCard(intern)}
-//   ${generateHtmlEnd(answers)}`;
-// };
+const writeToFile = (filePath, data) => {
+  try {
+    fs.writeFileSync(filePath, data);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 start();

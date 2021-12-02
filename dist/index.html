@@ -35,7 +35,7 @@
         <div class="row">
           <div class="col-12 jumbotron mb-3 bg-dark text-white">
             <h1 class="text-center">
-              <i class="fas fa-users"></i> {{team name}}
+              <i class="fas fa-users"></i> ${results.teamName}
             </h1>
           </div>
         </div>
@@ -47,11 +47,75 @@
         <div
           class="team-area col-12 d-flex flex-wrap justify-content-between p-3"
         >
-          <!--Manager Card-->
+          <div class="card employee-card mr-1 mt-3">
+            <div class="card-header">
+              <h2 class="card-title">${Manager.name}</h2>
+              <h3 class="card-title">Manager</h3>
+            </div>
+            <div class="card-body">
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <span class="material-icons">fingerprint</span> ID:
+                  ${Manager.id}
+                </li>
+                <li class="list-group-item text-dark">
+                  <span class="material-icons">email</span> Email:
+                  <a href="mailto:{{ email }}">${Manager.email}</a>
+                </li>
+                <li class="list-group-item">
+                  <span class="material-icons">business</span> Office Number:
+                  ${Manager.officeNumber}
+                </li>
+              </ul>
+            </div>
+          </div>
 
-          <!--Engineer Card-->
+          <div class="card employee-card mr-1 mt-3">
+            <div class="card-header">
+              <h2 class="card-title">${Engineer.name}</h2>
+              <h3 class="card-title bg-info">Engineer</h3>
+            </div>
+            <div class="card-body">
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <span class="material-icons"></span> ID: ${Engineer.id}
+                </li>
+                <li class="list-group-item text-dark">
+                  <span class="material-icons">email</span> Email:
+                  <a href="mailto:{{ email }}">${Engineer.email}</a>
+                </li>
+                <li class="list-group-item text-dark">
+                  <span class="material-icons">code</span> GitHub:
+                  <a href="https://github.com/{{ github }}" target="_blank"
+                    >${Engineer.github}</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
 
-          <!--Intern Card-->
+          <div class="card employee-card mr-1 mt-3">
+            <div class="card-header">
+              <h2 class="card-title">${Intern.name}</h2>
+              <h3 class="card-title">Intern</h3>
+            </div>
+            <div class="card-body">
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <span class="material-icons">fingerprint</span> ID:
+                  ${Intern.id}
+                </li>
+                <li class="list-group-item text-dark">
+                  <span class="material-icons">email</span> Email:
+                  <a href="mailto:{{ email }}">${Intern.email}</a>
+                </li>
+                <li class="list-group-item">
+                  <span class="material-icons">school</span> School:
+                  ${Intern.school}
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
