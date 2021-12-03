@@ -32,4 +32,12 @@ describe("Engineer", () => {
 
     expected(actual).toEqual(expected);
   });
+
+  test("should return the expected github", () => {
+    const instance = new Engineer({ github: MichealJ });
+    const expected = "MichealJ";
+    const actual = instance.getGithub();
+
+    expected(actual).toEqual(expected);
+  });
 });

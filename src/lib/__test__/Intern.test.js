@@ -32,4 +32,12 @@ describe("Intern", () => {
 
     expected(actual).toEqual(expected);
   });
+
+  test("should return expected school", () => {
+    const instance = new Intern({ school: "UCL" });
+    const expected = "UCL";
+    const actual = instance.getSchool();
+
+    expected(actual).toEqual(expected);
+  });
 });
