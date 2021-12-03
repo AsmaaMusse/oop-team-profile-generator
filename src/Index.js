@@ -116,11 +116,6 @@ const start = async () => {
   let inProgress = true;
   const results = [];
 
-  const htmlFile = generateHtmlFile(results);
-
-  // write generated readme to a file
-  writeToFile("generatedHtmlFile.html", htmlFile);
-
   const { teamName } = await inquirer.prompt(teamQuestion);
   console.log(teamName);
 
@@ -131,25 +126,19 @@ const start = async () => {
       const { name, id, email, officeNumber } = await inquirer.prompt(
         managerQuestions
       );
-
       const employee = new Manager(name, id, email, officeNumber);
-
       employeeArray.push(employee);
     } else if (role === "Engineer") {
       const { name, id, email, github } = await inquirer.prompt(
         engineerQuestions
       );
-
       const employee = new Engineer(name, id, email, github);
-
       employeeArray.push(employee);
     } else if (role === "Intern") {
       const { name, id, email, school } = await inquirer.prompt(
         internQuestions
       );
-
       const employee = new Intern(name, id, email, school);
-
       employeeArray.push(employee);
     }
 
@@ -159,134 +148,178 @@ const start = async () => {
       inProgress = false;
     }
   }
+  writeToFile("dist/index.html", generateTeam(employeeArray));
 };
 
-const generateHtmlFile = (results) => {
-  return `<!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  
-      <link
-        rel="stylesheet"
-        href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-        crossorigin="anonymous"
-      />
-  
-      <link rel="preconnect" href="https://fonts.gstatic.com" />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,700;0,900;1,100;1,200;1,600&display=swap"
-        rel="stylesheet"
-      />
-  
-      <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
-        crossorigin="anonymous"
-      />
-  
-      <link rel="stylesheet" href="./styles.css" />
-      <title>My Team</title>
-    </head>
-  
-    <body>
-      <header class="header">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-12 jumbotron mb-3 bg-dark text-white">
-              <h1 class="text-center">
-                <i class="fas fa-users"></i> ${results.teamName}
-              </h1>
-            </div>
-          </div>
-        </div>
-      </header>
-  
-      <div class="container">
+const generateCards = (team) => {
+  let cards = [];
+  for (let i = 0; i < team.length; i++) {
+    const employeeArray = team[i];
+    switch (employeeArray.getRole()) {
+      case "Manager":
+        const manager = new Manager(
+          employeeArray.id,
+          employeeArray.name,
+          employeeArray.email,
+          employeeArray.officeNumber
+        );
+        cards.push(generateManagerCard(manager));
+        break;
+      case "Engineer":
+        const engineer = new Engineer(
+          employeeArray.id,
+          employeeArray.name,
+          employeeArray.email,
+          employeeArray.github
+        );
+        cards.push(generateEngineerCard(engineer));
+        break;
+      case "Intern":
+        const intern = new Intern(
+          employeeArray.id,
+          employeeArray.name,
+          employeeArray.email,
+          employeeArray.school
+        );
+        cards.push(generateInternCard(intern));
+        break;
+    }
+  }
+  return cards.join(``);
+};
+
+let generateManagerCard = (Manager) => {
+  return `
+  <div class="card employee-card mr-1 mt-3">
+  <div class="card-header">
+    <h3 class="card-title"> ID: ${Manager.getId()} </h3>
+    <h2 class="card-title">Manager</h2>
+  </div>
+  <div class="card-body">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <span class="material-icons"></span> ${Manager.getName()}
+      </li>
+      <li class="list-group-item text-dark">
+        <span class="material-icons"></span> Email:
+        <a href="mailto:{{ email }}"> ${Manager.getEmail()} </a>
+      </li>
+      <li class="list-group-item">
+        <span class="material-icons"></span> Office Number:
+        ${Manager.getOfficeNumber()}
+      </li>
+    </ul>
+  </div>
+</div>`;
+};
+
+let generateEngineerCard = (Engineer) => {
+  return `
+  <div class="card employee-card mr-1 mt-3">
+  <div class="card-header">
+    <h2 class="card-title"> ID: ${Engineer.getId()} </h2>
+    <h3 class="card-title">Engineer</h3>
+  </div>
+  <div class="card-body">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <span class="material-icons"> ${Engineer.getName()} </span> 
+      </li>
+      <li class="list-group-item text-dark">
+        <span class="material-icons"></span> Email:
+        <a href="mailto:{{ email }}"> ${Engineer.getEmail()} </a>
+      </li>
+      <li class="list-group-item text-dark">
+        <span class="material-icons"></span> GitHub:
+        <a href="https://github.com/{{ github }}" target="_blank"
+          > ${Engineer.getGithub()} </a
+        >
+      </li>
+    </ul>
+  </div>
+</div>`;
+};
+
+let generateInternCard = (Intern) => {
+  return `
+  <div class="card employee-card mr-1 mt-3">
+  <div class="card-header">
+    <h2 class="card-title">ID: ${Intern.getId()} </h2>
+    <h3 class="card-title">Intern</h3>
+  </div>
+  <div class="card-body">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <span class="material-icons"> ${Intern.getName()} </span> 
+      </li>
+      <li class="list-group-item text-dark">
+        <span class="material-icons"></span> Email:
+        <a href="mailto:{{ email }}"> ${Intern.getEmail()} </a>
+      </li>
+      <li class="list-group-item">
+        <span class="material-icons"></span> School: ${Intern.getSchool()}
+      </li>
+    </ul>
+  </div>
+</div>`;
+};
+
+const generateTeam = (employeeArray) => {
+  return `
+  <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,700;0,900;1,100;1,200;1,600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="./styles.css" />
+    <title>My Team</title>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container-fluid">
         <div class="row">
-          <div
-            class="team-area col-12 d-flex flex-wrap justify-content-between p-3"
-          >
-            <div class="card employee-card mr-1 mt-3">
-              <div class="card-header">
-                <h2 class="card-title">${results.name}</h2>
-                <h3 class="card-title">Manager</h3>
-              </div>
-              <div class="card-body">
-                <ul class="list-group">
-                  <li class="list-group-item">
-                    <span class="material-icons">fingerprint</span> ID:
-                    ${results.id}
-                  </li>
-                  <li class="list-group-item text-dark">
-                    <span class="material-icons">email</span> Email:
-                    <a href="mailto:{{ email }}">${results.email}</a>
-                  </li>
-                  <li class="list-group-item">
-                    <span class="material-icons">business</span> Office Number:
-                    ${results.officeNumber}
-                  </li>
-                </ul>
-              </div>
-            </div>
-  
-            <div class="card employee-card mr-1 mt-3">
-              <div class="card-header">
-                <h2 class="card-title">${results.name}</h2>
-                <h3 class="card-title bg-info">Engineer</h3>
-              </div>
-              <div class="card-body">
-                <ul class="list-group">
-                  <li class="list-group-item">
-                    <span class="material-icons"></span> ID: ${results.id}
-                  </li>
-                  <li class="list-group-item text-dark">
-                    <span class="material-icons">email</span> Email:
-                    <a href="mailto:{{ email }}">${results.email}</a>
-                  </li>
-                  <li class="list-group-item text-dark">
-                    <span class="material-icons">code</span> GitHub:
-                    <a href="https://github.com/{{ github }}" target="_blank"
-                      >${results.github}</a
-                    >
-                  </li>
-                </ul>
-              </div>
-            </div>
-  
-            <div class="card employee-card mr-1 mt-3">
-              <div class="card-header">
-                <h2 class="card-title">${results.name}</h2>
-                <h3 class="card-title">Intern</h3>
-              </div>
-              <div class="card-body">
-                <ul class="list-group">
-                  <li class="list-group-item">
-                    <span class="material-icons">fingerprint</span> ID:
-                    ${results.id}
-                  </li>
-                  <li class="list-group-item text-dark">
-                    <span class="material-icons">email</span> Email:
-                    <a href="mailto:{{ email }}">${results.email}</a>
-                  </li>
-                  <li class="list-group-item">
-                    <span class="material-icons">school</span> School:
-                    ${results.school}
-                  </li>
-                </ul>
-              </div>
-            </div>
+          <div class="col-12 jumbotron mb-3 bg-dark text-white">
+            <h1 class="text-center">
+              <i class="fas fa-users"></i> ${employeeArray.teamName}
+            </h1>
           </div>
         </div>
       </div>
-    </body>
-  </html>
-  
-  `;
+    </header>
+
+    <div class="container">
+      <div class="row">
+        <div
+          class="team-area col-12 d-flex flex-wrap justify-content-between p-3"
+        > ${generateCards(employeeArray)}</div>
+      </div>
+    </div>
+  </body>
+</html>
+`;
 };
 
 const writeToFile = (filePath, data) => {
