@@ -7,14 +7,6 @@ const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 
 //  Starter questions
-const teamQuestion = [
-  {
-    type: "input",
-    name: "teamName",
-    message: "Enter team name:",
-  },
-];
-
 const teamRole = [
   {
     type: "list",
@@ -116,9 +108,6 @@ const start = async () => {
   let inProgress = true;
   const results = [];
 
-  const { teamName } = await inquirer.prompt(teamQuestion);
-  console.log(teamName);
-
   while (inProgress) {
     const { role } = await inquirer.prompt(teamRole);
 
@@ -192,13 +181,13 @@ let generateManagerCard = (Manager) => {
   return `
   <div class="card employee-card mr-1 mt-3">
   <div class="card-header">
-    <h3 class="card-title"> ID: ${Manager.getId()} </h3>
-    <h2 class="card-title">Manager</h2>
+    <h3 class="card-title"> ${Manager.getId()} </h3>
+    <h4 class="card-title">Manager</h4>
   </div>
   <div class="card-body">
     <ul class="list-group">
       <li class="list-group-item">
-        <span class="material-icons"></span> ${Manager.getName()}
+        <span class="material-icons"></span>ID: ${Manager.getName()}
       </li>
       <li class="list-group-item text-dark">
         <span class="material-icons"></span> Email:
@@ -217,13 +206,13 @@ let generateEngineerCard = (Engineer) => {
   return `
   <div class="card employee-card mr-1 mt-3">
   <div class="card-header">
-    <h2 class="card-title"> ID: ${Engineer.getId()} </h2>
-    <h3 class="card-title">Engineer</h3>
+    <h2 class="card-title"> ${Engineer.getId()} </h2>
+    <h4 class="card-title">Engineer</h4>
   </div>
   <div class="card-body">
     <ul class="list-group">
       <li class="list-group-item">
-        <span class="material-icons"> ${Engineer.getName()} </span> 
+        <span class="material-icons">ID: ${Engineer.getName()} </span> 
       </li>
       <li class="list-group-item text-dark">
         <span class="material-icons"></span> Email:
@@ -244,13 +233,13 @@ let generateInternCard = (Intern) => {
   return `
   <div class="card employee-card mr-1 mt-3">
   <div class="card-header">
-    <h2 class="card-title">ID: ${Intern.getId()} </h2>
-    <h3 class="card-title">Intern</h3>
+    <h2 class="card-title"> ${Intern.getId()} </h2>
+    <h4 class="card-title">Intern</h4>
   </div>
   <div class="card-body">
     <ul class="list-group">
       <li class="list-group-item">
-        <span class="material-icons"> ${Intern.getName()} </span> 
+        <span class="material-icons">ID: ${Intern.getName()} </span> 
       </li>
       <li class="list-group-item text-dark">
         <span class="material-icons"></span> Email:
@@ -303,7 +292,7 @@ const generateTeam = (employeeArray) => {
         <div class="row">
           <div class="col-12 jumbotron mb-3 bg-dark text-white">
             <h1 class="text-center">
-              <i class="fas fa-users"></i> ${employeeArray.teamName}
+              <i class="fas fa-users"></i> My Team
             </h1>
           </div>
         </div>
