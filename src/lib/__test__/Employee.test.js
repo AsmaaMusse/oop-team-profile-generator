@@ -6,7 +6,7 @@ describe("Employee", () => {
     const expected = "Employee";
     const actual = instance.getRole();
 
-    expect(actual).toEqual(expected);
+    expected(actual).toEqual(expected);
   });
 
   test("should return expected name", () => {
@@ -14,7 +14,7 @@ describe("Employee", () => {
     const expected = "James Smith";
     const actual = instance.getName();
 
-    expect(actual).toEqual(expected);
+    expected(actual).toEqual(expected);
   });
 
   test("should return expected Id", () => {
