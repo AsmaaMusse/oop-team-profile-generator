@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
+    "jest": "jest",
     "test": "jest --verbose --coverage",
     "test:watch": "jest --verbose --watch"
   },
@@ -21,5 +22,9 @@
   "homepage": "https://github.com/AsmaaMusse/team-profile-generator#readme",
   "dependencies": {
     "inquirer": "^8.2.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.3",
+    "jest": "^27.4.3"
   }
 }
