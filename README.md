@@ -6,6 +6,8 @@ For this project, i created an application using Inquirer where the user is able
 
 ## video link
 
+## Usage
+
 ## Technologies used
 
 - HTML

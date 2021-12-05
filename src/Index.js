@@ -106,7 +106,6 @@ let employeeArray = [];
 // Function to start run the application
 const start = async () => {
   let inProgress = true;
-  const results = [];
 
   while (inProgress) {
     const { role } = await inquirer.prompt(teamRole);
@@ -137,7 +136,7 @@ const start = async () => {
       inProgress = false;
     }
   }
-  writeToFile("dist/index.html", generateTeam(employeeArray));
+  writeToFile("src/index.html", generateTeam(employeeArray));
 };
 
 const generateCards = (team) => {
