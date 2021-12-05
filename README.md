@@ -6,6 +6,12 @@ For this project, i created an application using Inquirer where the user is able
 
 ## links
 https://drive.google.com/file/d/1KzpnQGtqM8cTMeem-pQ3-XxW9iQ29wIv/view
+https://github.com/AsmaaMusse/team-profile-generator/tree/dev
+
+## Usage
+```
+npm run start
+```
 
 ## Technologies used
 
