@@ -4,6 +4,13 @@
 
 For this project, i created an application using Inquirer where the user is able to dynamically generate a Html page containing an information card for each member of a team.
 
+## Table of contents:
+- [Links](#links)
+- [Usage](#usage)
+- [Technologies Used](#technologies-used)
+- [Screenshots](#screenshots)
+- [Contribute](#contribute)
+
 ## links:
 
 - https://drive.google.com/file/d/1KzpnQGtqM8cTMeem-pQ3-XxW9iQ29wIv/view
